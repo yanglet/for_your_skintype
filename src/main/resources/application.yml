@@ -23,3 +23,15 @@ logging.level:
 
 server:
   port: 9090
+
+JWT:
+  SECRET:
+    KEY: VGpCd2NGRnFaRXhhVlVVeVRrZHNSazVxVWt4WFZGa3dWVEJyTWs1dWEzZE9ia3BzVVZSa1MxcFVhekpPU0ZaeQ==
+
+  ACCESS:
+    TOKEN:
+      VALIDITY: 600000 # 10분
+
+  REFRESH:
+    TOKEN:
+      VALIDITY: 6000000 # 100분
