@@ -1,12 +1,12 @@
 package com.project.fyst.domain.config;
 
 import com.google.gson.Gson;
-import com.project.fyst.domain.entity.Item;
-import com.project.fyst.domain.entity.LikedItem;
-import com.project.fyst.domain.entity.Member;
-import com.project.fyst.domain.repository.ItemRepository;
-import com.project.fyst.domain.repository.LikedItemRepository;
-import com.project.fyst.domain.repository.MemberRepository;
+import com.project.fyst.domain.entity.item.Item;
+import com.project.fyst.domain.entity.likeditem.LikedItem;
+import com.project.fyst.domain.entity.member.Member;
+import com.project.fyst.domain.repository.item.ItemRepository;
+import com.project.fyst.domain.repository.likeditem.LikedItemRepository;
+import com.project.fyst.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;

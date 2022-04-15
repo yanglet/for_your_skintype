@@ -1,8 +1,8 @@
 package com.project.fyst.security.auth;
 
-import com.project.fyst.domain.entity.Member;
+import com.project.fyst.domain.entity.member.Member;
 import com.project.fyst.domain.exception.MemberNotFoundException;
-import com.project.fyst.domain.repository.MemberRepository;
+import com.project.fyst.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

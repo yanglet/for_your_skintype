@@ -1,6 +1,6 @@
 package com.project.fyst.security.auth;
 
-import com.project.fyst.domain.entity.Member;
+import com.project.fyst.domain.entity.member.Member;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

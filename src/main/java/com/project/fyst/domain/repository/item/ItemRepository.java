@@ -1,6 +1,6 @@
-package com.project.fyst.domain.repository;
+package com.project.fyst.domain.repository.item;
 
-import com.project.fyst.domain.entity.Item;
+import com.project.fyst.domain.entity.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

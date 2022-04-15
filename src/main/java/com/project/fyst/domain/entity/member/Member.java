@@ -1,5 +1,7 @@
-package com.project.fyst.domain.entity;
+package com.project.fyst.domain.entity.member;
 
+import com.project.fyst.domain.entity.common.BaseEntity;
+import com.project.fyst.domain.entity.likeditem.LikedItem;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Member extends BaseEntity{
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "member_id")

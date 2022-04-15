@@ -1,4 +1,4 @@
-package com.project.fyst.domain.entity;
+package com.project.fyst.domain.entity.common;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

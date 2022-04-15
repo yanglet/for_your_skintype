@@ -1,5 +1,6 @@
-package com.project.fyst.domain.entity;
+package com.project.fyst.domain.entity.item;
 
+import com.project.fyst.domain.entity.common.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Item extends BaseEntity{
+public class Item extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "item_id")
