@@ -2,6 +2,7 @@ package com.project.fyst.domain.entity.member;
 
 import com.project.fyst.domain.entity.common.BaseEntity;
 import com.project.fyst.domain.entity.likeditem.LikedItem;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,12 +30,14 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<LikedItem> likedItems = new ArrayList<>();
 
-    public Member(String name, String gender, String email, String password, String phoneNumber) {
+    @Builder
+    public Member(String name, String gender, String email, String password, String phoneNumber, String roles) {
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.roles = roles;
     }
 
     public Member(Long id, String name, String gender, String email, String password, String phoneNumber) {

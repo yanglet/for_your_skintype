@@ -43,11 +43,12 @@ public class JwtTokenProvider {
 
     @PostConstruct
     protected void init(){
+        log.info("JwtTokenProvider.init()");
         SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
     public AccessToken generateAccessToken(Map<String, Object> claimMap) {
-        log.info("JwtService.generateAccessToken()");
+        log.info("JwtTokenProvider.generateAccessToken()");
         Date expireTime = new Date(System.currentTimeMillis() + JWT_ACCESS_TOKEN_VALIDITY);
         String token = Jwts.builder()
                 .setHeaderParam("type", "JWT")
@@ -62,12 +63,14 @@ public class JwtTokenProvider {
     }
 
     public AccessToken generateAccessTokenBy(Member member){
+        log.info("JwtTokenProvider.generateAccessTokenBy()");
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", member.getEmail());
         return generateAccessToken(claims);
     }
 
     public AccessToken generateAccessTokenBy(String refreshToken){
+        log.info("JwtTokenProvider.generateAccessTokenBy()");
         Member member = findMemberByToken(refreshToken);
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", member.getEmail());
@@ -75,7 +78,7 @@ public class JwtTokenProvider {
     }
 
     public String generateRefreshToken(Member member){
-        log.info("JwtService.generateRefreshToken()");
+        log.info("JwtTokenProvider.generateRefreshToken()");
         Map<String, Object> claimMap = new HashMap<>();
         claimMap.put("email", member.getEmail());
         Date expireTime = new Date(System.currentTimeMillis() + JWT_REFRESH_TOKEN_VALIDITY);
@@ -92,11 +95,13 @@ public class JwtTokenProvider {
     }
 
     public boolean isValidToken(String token){
+        log.info("JwtTokenProvider.isValidToken()");
         Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
         return !claims.getBody().getExpiration().before(new Date());
     }
 
     private String findEmailByToken(String token) {
+        log.info("JwtTokenProvider.findEmailByToken()");
         Claims claims = Jwts
                 .parser()
                 .setSigningKey(SECRET_KEY)
@@ -107,6 +112,7 @@ public class JwtTokenProvider {
     }
 
     public Member findMemberByToken(String token){
+        log.info("JwtTokenProvider.findMemberByToken()");
         Claims claims = Jwts
                 .parser()
                 .setSigningKey(SECRET_KEY)
@@ -119,7 +125,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token){
-        log.info("JwtService.getAuthentication()");
+        log.info("JwtTokenProvider.getAuthentication()");
         UserDetails userDetails = principalDetailsService.loadUserByUsername(findEmailByToken(token));
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }

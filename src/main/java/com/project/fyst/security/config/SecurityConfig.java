@@ -48,10 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable() // 기본 인증방식 사용x
-                // 필터 등록 WebSecurityConfigurerAdapter가 authenticationManager를 들고 있음
                 .authorizeHttpRequests()
                 // 추후에 예외시킬 url 설정해야 함
-                .anyRequest().permitAll()
+                .antMatchers("/**").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()

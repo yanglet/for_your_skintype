@@ -4,6 +4,6 @@ import com.project.fyst.security.exception.NotFoundException;
 
 public class MemberNotFoundException extends NotFoundException {
     public MemberNotFoundException() {
-        super("PassWord is Incorrect");
+        super("회원을 찾을 수 없습니다.");
     }
 }

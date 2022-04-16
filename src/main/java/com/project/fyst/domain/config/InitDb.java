@@ -12,6 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -40,6 +41,7 @@ public class InitDb {
         private final ItemRepository itemRepository;
         private final MemberRepository memberRepository;
         private final LikedItemRepository likedItemRepository;
+        private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
         public void dbInit() throws IOException, ParseException {
             ClassPathResource resource = new ClassPathResource("data/itemdata.json");
@@ -51,16 +53,21 @@ public class InitDb {
                 itemRepository.save(new Gson().fromJson(o.toString(), Item.class));
             }
 
+            String pw1 = bCryptPasswordEncoder.encode("user1_password");
+            String pw2 = bCryptPasswordEncoder.encode("yanglet_pw");
+
             Member member1 = new Member("박유저",
                     "woman",
                     "user1@gmail.com",
-                    "user1_password",
-                    "01012345678");
+                    pw1,
+                    "01012345678",
+                    "ROLE_USER");
             Member member2 = new Member("양글렛",
                     "man",
                     "yanglet@gmail.com",
-                    "yanglet_pw",
-                    "01023124123");
+                    pw2,
+                    "01023124123",
+                    "ROLE_ADMIN");
 
 
             LikedItem likedItem1 = LikedItem.createLikedItem(itemRepository.findOne(3L).get(), member1);
