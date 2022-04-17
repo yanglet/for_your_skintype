@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccessToken {
     private String token;
-    private Long expire;
 }

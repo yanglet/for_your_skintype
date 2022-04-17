@@ -70,10 +70,10 @@ public class InitDb {
                     "ROLE_ADMIN");
 
 
-            LikedItem likedItem1 = LikedItem.createLikedItem(itemRepository.findOne(3L).get(), member1);
-            LikedItem likedItem2 = LikedItem.createLikedItem(itemRepository.findOne(5L).get(), member1);
-            LikedItem likedItem3 = LikedItem.createLikedItem(itemRepository.findOne(8L).get(), member2);
-            LikedItem likedItem4 = LikedItem.createLikedItem(itemRepository.findOne(14L).get(), member2);
+            LikedItem likedItem1 = LikedItem.of(itemRepository.findOne(3L).get(), member1);
+            LikedItem likedItem2 = LikedItem.of(itemRepository.findOne(5L).get(), member1);
+            LikedItem likedItem3 = LikedItem.of(itemRepository.findOne(8L).get(), member2);
+            LikedItem likedItem4 = LikedItem.of(itemRepository.findOne(14L).get(), member2);
 
             likedItemRepository.save(likedItem1);
             likedItemRepository.save(likedItem2);

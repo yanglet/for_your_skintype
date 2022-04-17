@@ -26,7 +26,7 @@ public class LikedItem extends BaseEntity {
     private Member member;
 
     //생성 메서드
-    public static LikedItem createLikedItem(Item item, Member member){
+    public static LikedItem of(Item item, Member member){
         LikedItem likedItem = new LikedItem();
         likedItem.setItem(item);
         likedItem.setMember(member);

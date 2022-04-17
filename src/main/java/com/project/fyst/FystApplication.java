@@ -17,5 +17,4 @@ public class FystApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FystApplication.class, args);
 	}
-
 }

@@ -8,9 +8,11 @@ import com.project.fyst.domain.member.dto.MemberDto;
 import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.auth.service.AuthService;
 import com.project.fyst.global.jwt.dto.AccessToken;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
     private final AuthService authService;
 
-    // 로그인
+    @ApiOperation("로그인")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public MemberLoginResponse login(@RequestBody MemberLoginRequest memberLoginRequest,
@@ -33,10 +35,11 @@ public class AuthController {
         return authService.login(memberLoginRequest, response);
     }
 
-    // 회원가입
+    @ApiOperation("회원가입")
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberJoinResponse join(@Validated @RequestBody MemberJoinRequest memberJoinRequest){
+    public MemberJoinResponse join(@Validated @RequestBody MemberJoinRequest memberJoinRequest,
+                                   BindingResult bindingResult){
         Member member = Member.builder()
                 .name(memberJoinRequest.getName())
                 .gender(memberJoinRequest.getGender())
@@ -48,10 +51,11 @@ public class AuthController {
 
         member = authService.join(member);
 
-        return new MemberJoinResponse(MemberDto.of(member));
+        return new MemberJoinResponse(new MemberDto(member));
     }
 
-    // 엑세스 토큰 재발급
+    // 권한 처리 필요
+    @ApiOperation("엑세스 토큰 재발급")
     @GetMapping("/accesstoken")
     @ResponseStatus(HttpStatus.CREATED)
     public AccessToken requestAccessToken(@RequestHeader String refreshToken,

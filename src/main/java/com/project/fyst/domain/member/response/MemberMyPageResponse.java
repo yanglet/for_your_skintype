@@ -1,28 +1,23 @@
-package com.project.fyst.domain.member.dto;
+package com.project.fyst.domain.member.response;
 
 import com.project.fyst.domain.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class MemberDto {
+@NoArgsConstructor
+public class MemberMyPageResponse {
     private Long id;
     private String name;
     private String gender;
     private String email;
-    private String password;
     private String phoneNumber;
-    private String roles;
 
-    public MemberDto(Member member) {
+    public MemberMyPageResponse(Member member) {
         this.id = member.getId();
         this.name = member.getName();
         this.gender = member.getGender();
         this.email = member.getEmail();
-        this.password = member.getPassword();
         this.phoneNumber = member.getPhoneNumber();
-        this.roles = member.getRoles();
     }
-
 }

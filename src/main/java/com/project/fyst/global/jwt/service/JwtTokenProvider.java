@@ -59,7 +59,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
 
-        return new AccessToken(token, expireTime.getTime());
+        return new AccessToken(token);
     }
 
     public AccessToken generateAccessTokenBy(Member member){
