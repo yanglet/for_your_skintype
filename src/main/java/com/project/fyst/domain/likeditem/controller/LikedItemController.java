@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class LikedItemController {
     private final LikedItemRepository likedItemRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    // 권한 처리 필요
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("상품을 장바구니에 추가")
     @PostMapping("/{itemId}")
     @ResponseStatus(HttpStatus.CREATED)
@@ -41,7 +42,7 @@ public class LikedItemController {
         return new LikedItemDto(likedItemRepository.save(LikedItem.of(item, member)));
     }
 
-    // 권한 처리 필요
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("회원에 따른 장바구니 조회")
     @GetMapping("/{memberId}/likeditems")
     @ResponseStatus(HttpStatus.OK)
@@ -55,7 +56,7 @@ public class LikedItemController {
         return new Result(collect);
     }
 
-    // 권한 처리 필요
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("장바구니 취소")
     @DeleteMapping("/{likedItemId}")
     @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)

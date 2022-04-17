@@ -41,15 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 세션방식 사용x
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
-                .httpBasic().disable() // 기본 인증방식 사용x
+                .httpBasic().disable()
                 .authorizeHttpRequests()
-                // 추후에 예외시킬 url 설정해야 함
                 .antMatchers("/**").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())

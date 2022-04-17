@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ItemController {
         return new Result(collect);
     }
 
-    // 권한 처리 필요
+    @Secured("ROLE_ADMIN")
     @ApiOperation("상품 삭제")
     @DeleteMapping("/{itemId}")
     @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)

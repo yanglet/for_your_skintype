@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,11 +25,9 @@ import java.util.stream.Collectors;
 @RequestMapping("v1/api/members")
 @Slf4j
 public class MemberController {
-
     private final MemberRepository memberRepository;
-    private final JwtTokenProvider jwtTokenProvider;
 
-    // 권한 처리 필요
+    @Secured("ROLE_ADMIN")
     @ApiOperation("전체 회원 정보 조회")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -51,7 +50,7 @@ public class MemberController {
         }
     }
 
-    // 권한 처리 필요
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("회원 상세 정보 조회")
     @GetMapping("/{memberId}")
     @ResponseStatus(HttpStatus.OK)
@@ -59,6 +58,7 @@ public class MemberController {
         return new Result(new MemberMyPageResponse(memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new)));
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation("회원 삭제")
     @DeleteMapping("/{memberId}")
     @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)

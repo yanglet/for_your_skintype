@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,7 @@ public class AuthController {
         return new MemberJoinResponse(new MemberDto(member));
     }
 
-    // 권한 처리 필요
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("엑세스 토큰 재발급")
     @GetMapping("/accesstoken")
     @ResponseStatus(HttpStatus.CREATED)
