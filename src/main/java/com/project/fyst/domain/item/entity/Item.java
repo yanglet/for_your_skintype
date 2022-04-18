@@ -2,13 +2,11 @@ package com.project.fyst.domain.item.entity;
 
 import com.project.fyst.domain.common.entity.BaseEntity;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 public class Item extends BaseEntity {
     @Id
     @GeneratedValue

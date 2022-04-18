@@ -2,7 +2,6 @@ package com.project.fyst.domain.likeditem.repository;
 
 import com.project.fyst.domain.entity.item.QItem;
 import com.project.fyst.domain.entity.likeditem.QLikedItem;
-import com.project.fyst.domain.entity.member.QMember;
 import com.project.fyst.domain.item.entity.Item;
 import com.project.fyst.domain.likeditem.entity.LikedItem;
 import com.project.fyst.domain.member.entity.Member;
@@ -13,10 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.project.fyst.domain.entity.item.QItem.*;
 import static com.project.fyst.domain.entity.item.QItem.item;
-import static com.project.fyst.domain.entity.likeditem.QLikedItem.*;
-import static com.project.fyst.domain.entity.member.QMember.*;
+import static com.project.fyst.domain.entity.likeditem.QLikedItem.likedItem;
+import static com.project.fyst.domain.entity.member.QMember.member;
 
 @RequiredArgsConstructor
 public class LikedItemRepositoryImpl implements LikedItemRepositoryCustom{
@@ -27,7 +25,7 @@ public class LikedItemRepositoryImpl implements LikedItemRepositoryCustom{
     @Transactional // org.springframework.dao.InvalidDataAccessApiUsageException 해결
     @Override
     public LikedItem save(Item item, Member member) {
-        LikedItem likedItem = LikedItem.of(item, member);
+        LikedItem likedItem = LikedItem.createLikedItem(item, member);
         em.persist(likedItem);
 
         return likedItem;

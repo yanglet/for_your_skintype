@@ -2,10 +2,10 @@ package com.project.fyst.global.config;
 
 import com.google.gson.Gson;
 import com.project.fyst.domain.item.entity.Item;
-import com.project.fyst.domain.likeditem.entity.LikedItem;
-import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.item.repository.ItemRepository;
+import com.project.fyst.domain.likeditem.entity.LikedItem;
 import com.project.fyst.domain.likeditem.repository.LikedItemRepository;
+import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
@@ -70,10 +70,10 @@ public class InitDb {
                     "ROLE_ADMIN");
 
 
-            LikedItem likedItem1 = LikedItem.of(itemRepository.findOne(3L).get(), member1);
-            LikedItem likedItem2 = LikedItem.of(itemRepository.findOne(5L).get(), member1);
-            LikedItem likedItem3 = LikedItem.of(itemRepository.findOne(8L).get(), member2);
-            LikedItem likedItem4 = LikedItem.of(itemRepository.findOne(14L).get(), member2);
+            LikedItem likedItem1 = LikedItem.createLikedItem(itemRepository.findOne(3L).get(), member1);
+            LikedItem likedItem2 = LikedItem.createLikedItem(itemRepository.findOne(5L).get(), member1);
+            LikedItem likedItem3 = LikedItem.createLikedItem(itemRepository.findOne(8L).get(), member2);
+            LikedItem likedItem4 = LikedItem.createLikedItem(itemRepository.findOne(14L).get(), member2);
 
             likedItemRepository.save(likedItem1);
             likedItemRepository.save(likedItem2);

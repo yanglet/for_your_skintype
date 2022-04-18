@@ -1,8 +1,6 @@
 package com.project.fyst.domain.member.dto;
 
 import com.project.fyst.domain.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Data

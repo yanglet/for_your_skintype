@@ -2,13 +2,9 @@ package com.project.fyst.domain.item.controller;
 
 import com.project.fyst.domain.common.dto.Result;
 import com.project.fyst.domain.item.dto.ItemDto;
-import com.project.fyst.domain.item.entity.Item;
 import com.project.fyst.domain.item.entity.SkinType;
 import com.project.fyst.domain.item.repository.ItemRepository;
-import com.project.fyst.domain.member.entity.Member;
-import com.project.fyst.global.exception.NotFoundException;
 import com.project.fyst.global.jwt.dto.AccessToken;
-import com.project.fyst.global.jwt.service.JwtTokenProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

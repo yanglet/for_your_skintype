@@ -3,11 +3,8 @@ package com.project.fyst.domain.item.repository;
 import com.project.fyst.domain.entity.item.QItem;
 import com.project.fyst.domain.item.entity.Item;
 import com.project.fyst.domain.item.entity.SkinType;
-import com.project.fyst.domain.likeditem.entity.LikedItem;
 import com.project.fyst.domain.likeditem.repository.LikedItemRepository;
-import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.global.jwt.dto.AccessToken;
-import com.project.fyst.global.jwt.service.JwtTokenProvider;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.project.fyst.domain.entity.item.QItem.*;
-import static com.project.fyst.domain.entity.likeditem.QLikedItem.*;
+import static com.project.fyst.domain.entity.item.QItem.item;
 
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepositoryCustom{
@@ -24,7 +20,6 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
     private final JPAQueryFactory queryFactory;
     private final LikedItemRepository likedItemRepository;
     private final EntityManager em;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public List<Item> findDrItems() {
