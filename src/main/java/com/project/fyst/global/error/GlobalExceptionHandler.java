@@ -6,10 +6,9 @@ import com.project.fyst.domain.auth.exception.PasswordMismatchException;
 import com.project.fyst.global.exception.ForbiddenException;
 import com.project.fyst.global.exception.NotFoundException;
 import com.project.fyst.global.jwt.exception.TokenHasExpiredException;
-import com.project.fyst.global.jwt.exception.TokenInsInvalidException;
+import com.project.fyst.global.jwt.exception.TokenIsInvalidException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -76,7 +75,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler
-    protected ErrorResult handleTokenInsInvalidException(TokenInsInvalidException e){
+    protected ErrorResult handleTokenInsInvalidException(TokenIsInvalidException e){
         log.error("handleForbiddenException", e);
         return new ErrorResult("403", "토큰이 유효하지 않습니다.");
     }

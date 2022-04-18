@@ -4,6 +4,7 @@ import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.auth.exception.MemberNotFoundException;
 import com.project.fyst.domain.member.repository.MemberRepository;
 import com.project.fyst.global.jwt.dto.AccessToken;
+import com.project.fyst.global.jwt.exception.TokenIsInvalidException;
 import com.project.fyst.global.security.PrincipalDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -71,6 +72,9 @@ public class JwtTokenProvider {
 
     public AccessToken generateAccessTokenBy(String refreshToken){
         log.info("JwtTokenProvider.generateAccessTokenBy()");
+        if( !isValidToken(refreshToken) ){
+            throw new TokenIsInvalidException();
+        }
         Member member = findMemberByToken(refreshToken);
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", member.getEmail());

@@ -51,7 +51,7 @@ public class AuthService {
 
     public AccessToken getAccessTokenBy(String refreshToken, HttpServletResponse response){
         log.info("AuthService.getAccessTokenBy()");
-        response.setHeader("RefreshToken", refreshToken);
+
         return jwtTokenProvider.generateAccessTokenBy(refreshToken);
     }
 
