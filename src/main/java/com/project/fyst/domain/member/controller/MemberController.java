@@ -7,8 +7,6 @@ import com.project.fyst.domain.member.dto.MemberWithLikedItemDto;
 import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.member.repository.MemberRepository;
 import com.project.fyst.domain.member.response.MemberMyPageResponse;
-import com.project.fyst.global.jwt.dto.AccessToken;
-import com.project.fyst.global.jwt.service.JwtTokenProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +39,8 @@ public class MemberController {
             return new Result(collect);
         }
         else{ // 장바구니 포함
-            List<MemberWithLikedItemDto> collect = memberRepository.findAll()
+            // lazyinitializationexception -> 페치조인으로 해결
+            List<MemberWithLikedItemDto> collect = memberRepository.findAllWithLikedItems()
                     .stream()
                     .map(MemberWithLikedItemDto::new)
                     .collect(Collectors.toList());
@@ -58,6 +57,7 @@ public class MemberController {
         return new Result(new MemberMyPageResponse(memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new)));
     }
 
+    // DataIntegrityViolationException 발생
     @Secured("ROLE_ADMIN")
     @ApiOperation("회원 삭제")
     @DeleteMapping("/{memberId}")

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MemberRepositoryCustom {
     List<Member> findAllWithLikedItems();
+    Member findOneByEmailWithLikedItems(String email);
 }
+

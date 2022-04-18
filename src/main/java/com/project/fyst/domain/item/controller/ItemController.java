@@ -37,6 +37,7 @@ public class ItemController {
         return new Result(collect);
     }
 
+    // DataIntegrityViolationException 발생
     @Secured("ROLE_ADMIN")
     @ApiOperation("상품 삭제")
     @DeleteMapping("/{itemId}")
@@ -48,9 +49,9 @@ public class ItemController {
     }
 
     @ApiOperation("브랜드에 따른 상품 조회")
-    @GetMapping("/{brand}")
+    @GetMapping("/brand")
     @ResponseStatus(HttpStatus.OK)
-    public Result getItemsByBrand(@PathVariable("brand") String brand){
+    public Result getItemsByBrand(@RequestParam("name") String brand){
         List<ItemDto> collect = itemRepository.findItemsByBrand(brand)
                 .stream()
                 .map(ItemDto::new)
@@ -60,10 +61,10 @@ public class ItemController {
     }
 
     @ApiOperation("피부타입에 따른 상품 조회")
-    @GetMapping("/{skinType}")
+    @GetMapping("/skintype")
     @ResponseStatus(HttpStatus.OK)
-    public Result getItemsBySkinType(@PathVariable("skinType") SkinType skinType){
-        List<ItemDto> collect = itemRepository.findItemsBySkinType(skinType)
+    public Result getItemsBySkinType(@RequestParam("skintype") String skinType){
+        List<ItemDto> collect = itemRepository.findItemsBySkinType(SkinType.valueOf(skinType))
                 .stream()
                 .map(ItemDto::new)
                 .collect(Collectors.toList());

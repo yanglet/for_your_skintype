@@ -22,4 +22,13 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .join(likedItem.item, item).fetchJoin()
                 .fetch();
     }
+
+    @Override
+    public Member findOneByEmailWithLikedItems(String email) {
+        return queryFactory.selectFrom(member).distinct()
+                .join(member.likedItems, likedItem).fetchJoin()
+                .join(likedItem.item, item).fetchJoin()
+                .where(member.email.eq(email))
+                .fetchOne();
+    }
 }

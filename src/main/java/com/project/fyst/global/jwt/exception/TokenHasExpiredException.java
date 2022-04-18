@@ -1,9 +1,9 @@
 package com.project.fyst.global.jwt.exception;
 
-import com.project.fyst.global.exception.ForbiddenException;
+import io.jsonwebtoken.JwtException;
 
-public class TokenHasExpiredException extends ForbiddenException {
+public class TokenHasExpiredException extends JwtException {
     public TokenHasExpiredException(){
-        super("Token has Expired");
+        super("토큰이 만료되었습니다.");
     }
 }

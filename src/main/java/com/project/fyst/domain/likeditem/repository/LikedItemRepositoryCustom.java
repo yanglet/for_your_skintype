@@ -7,6 +7,7 @@ import com.project.fyst.domain.member.entity.Member;
 import java.util.List;
 
 public interface LikedItemRepositoryCustom {
+    LikedItem save(Item item, Member Member);
     List<LikedItem> findAllByEmail(String email);
     void delete(Long likedItemId);
 }

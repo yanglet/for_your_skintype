@@ -100,8 +100,14 @@ public class JwtTokenProvider {
 
     public boolean isValidToken(String token){
         log.info("JwtTokenProvider.isValidToken()");
-        Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-        return !claims.getBody().getExpiration().before(new Date());
+        Jws<Claims> claims;
+        try{
+            claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            return !claims.getBody().getExpiration().before(new Date());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private String findEmailByToken(String token) {

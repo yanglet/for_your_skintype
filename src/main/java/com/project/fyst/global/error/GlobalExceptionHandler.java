@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-@RestControllerAdvice({"com.project.fyst.domain.member.controller",
-        "com.project.fyst.domain.item.controller",
-        "com.project.fyst.domain.likeditem.controller"})
+@RestControllerAdvice("com.project.fyst.domain")
 @Slf4j
 public class GlobalExceptionHandler {
 
@@ -57,8 +55,6 @@ public class GlobalExceptionHandler {
         return new ErrorResult("400", e.getMessage());
     }
 
-    // 접근 권한, 인증(로그인) 예외처리는 filter 에서 해줌
-
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler
     protected ErrorResult handleForbiddenException(ForbiddenException e){
@@ -75,8 +71,8 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler
-    protected ErrorResult handleTokenInsInvalidException(TokenIsInvalidException e){
-        log.error("handleForbiddenException", e);
+    protected ErrorResult handleTokenIsInvalidException(TokenIsInvalidException e){
+        log.error("handleTokenIsInvalidException", e);
         return new ErrorResult("403", "토큰이 유효하지 않습니다.");
     }
 

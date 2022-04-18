@@ -8,6 +8,7 @@ import com.project.fyst.domain.likeditem.entity.LikedItem;
 import com.project.fyst.domain.member.entity.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -21,6 +22,17 @@ public class LikedItemRepositoryImpl implements LikedItemRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
     private final EntityManager em;
+
+// org.springframework.dao.InvalidDataAccessApiUsageException:
+// No EntityManager with actual transaction available for current thread - cannot reliably process 'persist' call;
+    @Transactional // 오류 해결
+    @Override
+    public LikedItem save(Item item, Member member) {
+        LikedItem likedItem = LikedItem.of(item, member);
+        em.persist(likedItem);
+
+        return likedItem;
+    }
 
     @Override
     public List<LikedItem> findAllByEmail(String email) {
