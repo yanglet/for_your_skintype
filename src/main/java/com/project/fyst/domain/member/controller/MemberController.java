@@ -63,9 +63,7 @@ public class MemberController {
     @DeleteMapping("/{memberId}")
     @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
     public void deleteMember(@PathVariable("memberId") Long memberId){
-        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
-
-        memberRepository.delete(member);
+        memberRepository.delete(memberId);
     }
 
 }

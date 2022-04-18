@@ -9,5 +9,6 @@ import java.util.List;
 public interface LikedItemRepositoryCustom {
     LikedItem save(Item item, Member Member);
     List<LikedItem> findAllByEmail(String email);
+    List<LikedItem> findAllByItem(Item item);
     void delete(Long likedItemId);
 }

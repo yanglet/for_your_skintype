@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.project.fyst.domain.entity.item.QItem.*;
+import static com.project.fyst.domain.entity.item.QItem.item;
 import static com.project.fyst.domain.entity.likeditem.QLikedItem.*;
 import static com.project.fyst.domain.entity.member.QMember.*;
 
@@ -23,9 +24,7 @@ public class LikedItemRepositoryImpl implements LikedItemRepositoryCustom{
     private final JPAQueryFactory queryFactory;
     private final EntityManager em;
 
-// org.springframework.dao.InvalidDataAccessApiUsageException:
-// No EntityManager with actual transaction available for current thread - cannot reliably process 'persist' call;
-    @Transactional // 오류 해결
+    @Transactional // org.springframework.dao.InvalidDataAccessApiUsageException 해결
     @Override
     public LikedItem save(Item item, Member member) {
         LikedItem likedItem = LikedItem.of(item, member);
@@ -45,6 +44,21 @@ public class LikedItemRepositoryImpl implements LikedItemRepositoryCustom{
     }
 
     @Override
+    public List<LikedItem> findAllByItem(Item item) {
+        return queryFactory
+                .selectFrom(likedItem)
+                .join(likedItem.member, member).fetchJoin()
+                .join(likedItem.item, QItem.item).fetchJoin()
+                .where(likedItem.item.eq(item))
+                .fetch();
+    }
+
+    /**
+     * DataIntegrityViolationException 해결
+     * 연관된 엔티티를 페치조인으로 끌어와서 삭제
+     */
+    @Transactional // org.springframework.dao.InvalidDataAccessApiUsageException 해결
+    @Override
     public void delete(Long likedItemId) {
         LikedItem likedItem = queryFactory
                 .selectFrom(QLikedItem.likedItem)
@@ -55,4 +69,6 @@ public class LikedItemRepositoryImpl implements LikedItemRepositoryCustom{
 
         em.remove(likedItem);
     }
+
+
 }
