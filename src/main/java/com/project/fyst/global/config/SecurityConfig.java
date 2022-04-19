@@ -4,6 +4,7 @@ import com.project.fyst.global.jwt.filter.CustomAccessDeniedHandler;
 import com.project.fyst.global.jwt.filter.CustomAuthenticationEntryPoint;
 import com.project.fyst.global.jwt.filter.JwtAuthenticationFilter;
 import com.project.fyst.global.jwt.service.JwtTokenProvider;
+import com.project.fyst.global.redis.repository.LogoutAccessTokenRedisRepository;
 import com.project.fyst.global.security.PrincipalDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PrincipalDetailsService principalDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final LogoutAccessTokenRedisRepository logoutAccessTokenRedisRepository;
 
     @Bean
     @Override
@@ -54,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, logoutAccessTokenRedisRepository)
                         , UsernamePasswordAuthenticationFilter.class);
     }
 }

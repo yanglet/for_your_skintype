@@ -17,8 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin("*")
@@ -34,6 +32,13 @@ public class AuthController {
         log.info("AuthController.login()");
 
         return authService.login(memberLoginRequest);
+    }
+
+    @ApiOperation("로그아웃")
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public void logout(@RequestHeader("AccessToken") String accessToken){
+        authService.logout(accessToken, authService.getUsername(accessToken));
     }
 
     @ApiOperation("회원가입")
@@ -59,8 +64,7 @@ public class AuthController {
     @ApiOperation("엑세스 토큰 재발급")
     @GetMapping("/accesstoken")
     @ResponseStatus(HttpStatus.CREATED)
-    public AccessToken requestAccessToken(@RequestHeader String refreshToken,
-                                          HttpServletResponse response){
+    public AccessToken requestAccessToken(@RequestHeader String refreshToken){
         log.info("AuthController.requestAccessToken()");
         return authService.getAccessTokenBy(refreshToken);
     }

@@ -1,5 +1,6 @@
 package com.project.fyst.domain.likeditem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.fyst.domain.common.entity.BaseEntity;
 import com.project.fyst.domain.item.entity.Item;
 import com.project.fyst.domain.member.entity.Member;
@@ -21,6 +22,7 @@ public class LikedItem extends BaseEntity {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    @JsonBackReference // 순환참조 해결
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

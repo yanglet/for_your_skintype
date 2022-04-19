@@ -10,6 +10,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,7 @@ import java.util.Map;
 @Component
 @Slf4j
 @RequiredArgsConstructor
+@Getter
 public class JwtTokenProvider {
 
     private final PrincipalDetailsService principalDetailsService;
@@ -96,6 +98,17 @@ public class JwtTokenProvider {
                 .compact();
 
         return token;
+    }
+
+    public Long getAccessTokenExpiredTime(String token){
+        Date expiration = Jwts
+                .parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+
+        return expiration.getTime();
     }
 
     public boolean isValidToken(String token){

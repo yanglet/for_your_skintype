@@ -1,5 +1,6 @@
 package com.project.fyst.domain.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.fyst.domain.common.entity.BaseEntity;
 import com.project.fyst.domain.likeditem.entity.LikedItem;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class Member extends BaseEntity {
     private String phoneNumber;
     private String roles;
 
+    @JsonManagedReference // 순환참조 해결
     @OneToMany(mappedBy = "member")
     private List<LikedItem> likedItems = new ArrayList<>();
 

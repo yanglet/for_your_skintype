@@ -1,6 +1,7 @@
 package com.project.fyst.global.jwt.filter;
 
 import com.project.fyst.global.jwt.service.JwtTokenProvider;
+import com.project.fyst.global.redis.repository.LogoutAccessTokenRedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final LogoutAccessTokenRedisRepository logoutAccessTokenRedisRepository;
 
     @Override
     public void doFilter(ServletRequest request,
@@ -28,11 +30,20 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String accessToken = httpRequest.getHeader("AccessToken");
 
-        if( accessToken != null && jwtTokenProvider.isValidToken(accessToken) ){
-            Authentication auth = jwtTokenProvider.getAuthentication(accessToken);
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        if( accessToken != null ){
+            checkLogout(accessToken);
+            if( jwtTokenProvider.isValidToken(accessToken) ){
+                Authentication auth = jwtTokenProvider.getAuthentication(accessToken);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
         }
 
         chain.doFilter(request, response);
+    }
+
+    private void checkLogout(String accessToken) {
+        if (logoutAccessTokenRedisRepository.existsById(accessToken)) {
+            throw new IllegalArgumentException("로그아웃된 회원입니다.");
+        }
     }
 }
