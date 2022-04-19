@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccessToken {
-    private String token;
+    private String accessToken;
+    private Long expireTime;
 }

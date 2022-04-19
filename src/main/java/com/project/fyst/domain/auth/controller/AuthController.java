@@ -1,12 +1,12 @@
 package com.project.fyst.domain.auth.controller;
 
+import com.project.fyst.domain.auth.service.AuthService;
+import com.project.fyst.domain.member.dto.MemberDto;
+import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.member.request.MemberJoinRequest;
 import com.project.fyst.domain.member.request.MemberLoginRequest;
 import com.project.fyst.domain.member.response.MemberJoinResponse;
 import com.project.fyst.domain.member.response.MemberLoginResponse;
-import com.project.fyst.domain.member.dto.MemberDto;
-import com.project.fyst.domain.member.entity.Member;
-import com.project.fyst.domain.auth.service.AuthService;
 import com.project.fyst.global.jwt.dto.AccessToken;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +30,10 @@ public class AuthController {
     @ApiOperation("로그인")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public MemberLoginResponse login(@RequestBody MemberLoginRequest memberLoginRequest,
-                                     HttpServletResponse response){
+    public MemberLoginResponse login(@RequestBody MemberLoginRequest memberLoginRequest){
         log.info("AuthController.login()");
-        return authService.login(memberLoginRequest, response);
+
+        return authService.login(memberLoginRequest);
     }
 
     @ApiOperation("회원가입")
@@ -62,7 +62,7 @@ public class AuthController {
     public AccessToken requestAccessToken(@RequestHeader String refreshToken,
                                           HttpServletResponse response){
         log.info("AuthController.requestAccessToken()");
-        return authService.getAccessTokenBy(refreshToken, response);
+        return authService.getAccessTokenBy(refreshToken);
     }
 
 }

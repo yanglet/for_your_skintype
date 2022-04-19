@@ -14,6 +14,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * /swagger-ui/index.html 에서 api 문서 확인가능
+ */
+
 @Configuration
 @EnableWebMvc
 public class SwaggerConfig {

@@ -41,7 +41,7 @@ public class LikedItemController {
                      @PathVariable("itemId") Long itemId){
         // lazyinitializationexception -> 페치조인으로 해결
         Member member = memberRepository.findOneByEmailWithLikedItems(jwtTokenProvider
-                .findMemberByToken(accessToken.getToken())
+                .findMemberByToken(accessToken.getAccessToken())
                 .getEmail());
         Item item = itemRepository.findById(itemId).orElseThrow(NotFoundException::new);
 
@@ -61,7 +61,6 @@ public class LikedItemController {
         return new Result(collect);
     }
 
-    // DataIntegrityViolationException 발생
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation("장바구니 취소")
     @DeleteMapping("/{likedItemId}")

@@ -1,7 +1,7 @@
 package com.project.fyst.global.jwt.service;
 
-import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.auth.exception.MemberNotFoundException;
+import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.member.repository.MemberRepository;
 import com.project.fyst.global.jwt.dto.AccessToken;
 import com.project.fyst.global.jwt.exception.TokenIsInvalidException;
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
 
-        return new AccessToken(token);
+        return new AccessToken(token, expireTime.getTime());
     }
 
     public AccessToken generateAccessTokenBy(Member member){

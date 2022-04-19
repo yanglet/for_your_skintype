@@ -4,7 +4,6 @@ import com.project.fyst.domain.auth.exception.MemberNotFoundException;
 import com.project.fyst.domain.common.dto.Result;
 import com.project.fyst.domain.member.dto.MemberDto;
 import com.project.fyst.domain.member.dto.MemberWithLikedItemDto;
-import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.member.repository.MemberRepository;
 import com.project.fyst.domain.member.response.MemberMyPageResponse;
 import io.swagger.annotations.ApiOperation;
@@ -57,7 +56,6 @@ public class MemberController {
         return new Result(new MemberMyPageResponse(memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new)));
     }
 
-    // DataIntegrityViolationException 발생
     @Secured("ROLE_ADMIN")
     @ApiOperation("회원 삭제")
     @DeleteMapping("/{memberId}")

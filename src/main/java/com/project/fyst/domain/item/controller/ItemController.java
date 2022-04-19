@@ -36,7 +36,6 @@ public class ItemController {
         return new Result(collect);
     }
 
-    // DataIntegrityViolationException 발생
     @Secured("ROLE_ADMIN")
     @ApiOperation("상품 삭제")
     @DeleteMapping("/{itemId}")

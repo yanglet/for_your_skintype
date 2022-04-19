@@ -1,20 +1,18 @@
 package com.project.fyst.domain.auth.service;
 
-import com.project.fyst.domain.member.request.MemberLoginRequest;
-import com.project.fyst.domain.member.response.MemberLoginResponse;
-import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.auth.exception.MemberDuplicateException;
 import com.project.fyst.domain.auth.exception.MemberNotFoundException;
 import com.project.fyst.domain.auth.exception.PasswordMismatchException;
+import com.project.fyst.domain.member.entity.Member;
 import com.project.fyst.domain.member.repository.MemberRepository;
+import com.project.fyst.domain.member.request.MemberLoginRequest;
+import com.project.fyst.domain.member.response.MemberLoginResponse;
 import com.project.fyst.global.jwt.dto.AccessToken;
 import com.project.fyst.global.jwt.service.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +22,13 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public MemberLoginResponse login(MemberLoginRequest loginRequest, HttpServletResponse response){
+    public MemberLoginResponse login(MemberLoginRequest loginRequest){
         log.info("AuthService.login()");
         Member member = memberRepository.findByEmail(loginRequest.getEmail()).
                 orElseThrow(MemberNotFoundException::new);
         checkPassword(loginRequest.getPassword(), member.getPassword());
         AccessToken accessToken = jwtTokenProvider.generateAccessTokenBy(member);
         String refreshToken = jwtTokenProvider.generateRefreshToken(member);
-        response.addHeader("AccessToken", accessToken.getToken());
-        response.addHeader("RefreshToken", refreshToken);
 
         return new MemberLoginResponse(accessToken, refreshToken);
     }
@@ -49,7 +45,7 @@ public class AuthService {
         }
     }
 
-    public AccessToken getAccessTokenBy(String refreshToken, HttpServletResponse response){
+    public AccessToken getAccessTokenBy(String refreshToken){
         log.info("AuthService.getAccessTokenBy()");
 
         return jwtTokenProvider.generateAccessTokenBy(refreshToken);
