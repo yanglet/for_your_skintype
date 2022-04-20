@@ -84,6 +84,9 @@ public class AuthService {
 
     public AccessToken getAccessTokenBy(String refreshToken){
         log.info("AuthService.getAccessTokenBy()");
+        if( refreshTokenRedisRepository.existsById(refreshToken) ){
+            throw new IllegalArgumentException("유요한 RefreshToken이 아닙니다.");
+        }
 
         return jwtTokenProvider.generateAccessTokenBy(refreshToken);
     }
