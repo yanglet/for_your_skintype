@@ -6,6 +6,9 @@ https://github.com/yanglet/Fyst_backend 를 리뉴얼 하였음.
 ## 서비스 소개
 간단한 테스트를 통해 피부타입에 맞는 스킨 케어 제품을 찾아주는 웹 서비스
 
+## 팀 구성
+FE 1명, BE 1명 총 2명으로 구성 - BE ( Backend ) 를 담당하였음
+
 ## 구현
 - Spring Data JPA를 통한 DB 접근 및 관리
 - 주 저장소로 MySQL 사용
