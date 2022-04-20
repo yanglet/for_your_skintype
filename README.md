@@ -18,7 +18,6 @@ https://github.com/yanglet/Fyst_backend 를 리뉴얼 하였음.
 - Issues를 통해 프로젝트 진행 상황을 관리 ( https://github.com/yanglet/for_your_skintype/issues?q=is%3Aissue+is%3Aclosed )
 
 ## 데모 영상
-<details>
-  <summary>DEMO</summary>
-  ![foryourskintype_demo](https://user-images.githubusercontent.com/96788792/164139317-bda531b7-00d7-4e5e-87fa-e6b16dc1dfe7.gif)
-</details>
+<p>
+  <img src="https://user-images.githubusercontent.com/96788792/164140645-ff03e5f1-ed9f-4418-86ea-e9611c426db9.gif">
+</p>
