@@ -19,6 +19,7 @@ FE 1명, BE 1명 총 2명으로 구성 - BE ( Backend ) 를 담당하였음
 - Advice를 이용한 예외처리
 - 도메인형 디렉토리 구조를 선택
 - Issues를 통해 프로젝트 진행 상황을 관리 ( https://github.com/yanglet/for_your_skintype/issues?q=is%3Aissue+is%3Aclosed )
+- Spring AOP를 이용한 로그 출력
 
 ## 데모 영상
 <p>
