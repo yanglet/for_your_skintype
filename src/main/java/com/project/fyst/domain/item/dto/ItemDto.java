@@ -3,8 +3,6 @@ package com.project.fyst.domain.item.dto;
 import com.project.fyst.domain.item.entity.Item;
 import com.project.fyst.domain.item.entity.ItemFeature;
 import com.project.fyst.domain.item.entity.SkinType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -35,4 +33,5 @@ public class ItemDto {
         this.itemFeature = item.getItemFeature();
         this.skinType = item.getSkinType();
     }
+
 }
