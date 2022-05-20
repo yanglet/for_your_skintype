@@ -1,4 +1,4 @@
-package com.project.fyst.global.config;
+package com.project.fyst.global.config.swagger;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
